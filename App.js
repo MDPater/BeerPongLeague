@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-url-polyfill/auto";
+import "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
+import { Text, View } from "react-native";
 
-export default function App() {
+import { AppProvider, useApp } from "./app/utils/AppContext";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+function Main() {
+  const { session, theme } = useApp();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+        <StatusBar style="auto" />
+        <Text style={{ fontWeight: "bold", color: theme.colors.primary }}>
+          PLL = Pretty Like Linda
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <AppProvider>
+      <Main />
+    </AppProvider>
+  );
+}
